@@ -13,6 +13,22 @@ export class UserController {
     @Get()
     @Middleware([a.middleware1, a.middleware2])
     private getAll(req: Request, res: Response): void {
-        res.status(200).json({msg: "get_all_called"});
+        if(req.session.key) {
+            // if there is already a session key, the session is regenerated
+            req.session.regenerate((err) => {
+                if (err) {
+                    req.json({success: false, error: err});
+                } else {
+                    this.setUsername(req, res);
+                }
+            });
+        } else {
+            this.setUsername(req, res);
+        }
+    }
+
+    setUsername(req: Request, res: Response) {
+        req.session.key = { username: 'user:'+Math.random()}
+        res.status(200).json({msg: "get_all_called"});    
     }
 }

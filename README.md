@@ -1,5 +1,5 @@
 Start back-end server with  
-**ts-node-dev ./src/lib/server.ts**  
+**ts-node-dev ./src/server.ts**  
 
 Lint back-end code with  
 **tslint -c tslint.json 'src/\*\*/\*.ts'**  
