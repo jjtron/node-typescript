@@ -4,7 +4,7 @@ import * as session from 'express-session';
 import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
 import { Server } from "@overnightjs/core";
-import { UserController } from "./UserController";
+import { UserController, AuthController } from "./controllers";
 
 class App extends Server {
 
@@ -28,7 +28,11 @@ class App extends Server {
             resave: false
         }));
         const userController = new UserController();
-        super.addControllers([userController]);
+        const authController = new AuthController();
+        super.addControllers([
+            userController,
+            authController
+        ]);
     }
 }
 

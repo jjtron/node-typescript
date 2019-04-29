@@ -10,7 +10,7 @@ export class AppComponent  implements OnInit {
     title = 'BackEnd: NodeJS FrontEnd: Ng';
     constructor(private http: HttpClient) { }
     ngOnInit() {
-        this.http.get('/api').subscribe(() => {
+        this.http.post('/api/auth', {}).subscribe(() => {
 
         });
     }
