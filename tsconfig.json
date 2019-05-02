@@ -1,7 +1,12 @@
 {
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "allowJs": true
+        "allowJs": true,
+	    "emitDecoratorMetadata": true,
+	    "experimentalDecorators": true,
+	    "target": "ES5"
     },
-    "files": ["custom.d.ts"]
+    "files": ["custom.d.ts"],
+    "include": [
+        "src/**/*"
+    ]
 }
