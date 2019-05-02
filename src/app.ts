@@ -3,15 +3,23 @@ import * as bodyParser from "body-parser";
 import * as session from 'express-session';
 import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
+import { WinstonLogger } from "./logger";
 import { Server } from "@overnightjs/core";
 import { UserController, AuthController } from "./controllers";
+import { EventEmitter } from 'events';
 
 class App extends Server {
 
     public app: express.Application;
+    private logger: EventEmitter;
 
     constructor() {
         super();
+
+        let winston = new WinstonLogger();
+        let logger = winston.logger; 
+        logger.debug('Logger in debug mode');
+
         let redisSession = new RedisSession();
         this.app.use(express.static(__dirname + appConfig.public_dist_folder));
         this.app.use(bodyParser.json());

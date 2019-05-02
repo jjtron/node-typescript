@@ -16,6 +16,11 @@
     "connect-redis": "^3.4.1",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "winston": "^2.4.2",
+    "winston-daily-rotate-file": "^3.1.4"
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.4"
   }
 }
