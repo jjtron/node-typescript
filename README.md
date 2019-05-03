@@ -1,5 +1,5 @@
-Start back-end server with  
-**ts-node-dev ./src/server.ts**  
+Start back-end server with ts compiler in watch mode with  
+**npm run ts-dev**  
 
 Lint back-end code with  
 **tslint -c tslint.json 'src/\*\*/\*.ts'**  
