@@ -22,11 +22,11 @@ export class RedisSession {
         });
         client.on("ready", () => {
             logger.debug("Redis is running");
-            const RedisStore = connectRedis(session);
-            this.redisStore = new RedisStore({
-                client: client,
-                ttl:  360,
-            });
+        });
+        const RedisStore = connectRedis(session);
+        this.redisStore = new RedisStore({
+            client: client,
+            ttl:  360,
         });
     }
 }

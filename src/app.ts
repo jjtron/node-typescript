@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as session from "express-session";
+import * as parseUrl from "parseurl";
 import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
 import { WinstonLogger } from "./logger";
@@ -34,6 +35,23 @@ class App extends Server {
             },
             resave: false,
         }));
+        this.app.use((req, res, next) => {
+            const path = parseUrl(req).pathname;
+            if (appConfig.unprotectedPaths.indexOf(path) === -1) {
+                logger.debug(`Call to protected or un-known path: '${path}'`);
+                if (!req.session.key) {
+                    throw 'Error';
+                }
+            } else {
+                logger.debug(`Call to un-protected path: '${path}'`);
+            }
+            next();
+            //throw 'Error';
+        });
+        this.app.use((err, req, res, next) => {
+            res.statusCode = 400;
+            res.send('Err');
+        });
         const userController = new UserController();
         const authController = new AuthController();
         super.addControllers([

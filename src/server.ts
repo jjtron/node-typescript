@@ -4,6 +4,13 @@
 
 import app from "./app";
 import * as http from "http";
+import { WinstonLogger } from "./logger";
+
+/**
+ * Logger setup
+ */
+const winston = new WinstonLogger();
+const logger = winston.logger;
 
 /**
  * Get port from environment and store in Express.
@@ -15,7 +22,7 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => { console.log(`Listening on port ${port}`); });
+server.listen(port, () => { logger.debug(`Listening on port ${port}`); });
 server.on("error", onError);
 
 /**

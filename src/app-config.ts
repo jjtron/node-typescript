@@ -10,4 +10,8 @@ export const appConfig = {
     session_max_age: 60 * 60 * 12 * 1000,
 
     loglevel: "debug",
+
+    unprotectedPaths: [
+        "/auth"
+    ]
 };
