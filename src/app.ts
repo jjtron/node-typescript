@@ -1,12 +1,12 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import * as session from 'express-session';
+import * as session from "express-session";
 import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
 import { WinstonLogger } from "./logger";
 import { Server } from "@overnightjs/core";
 import { UserController, AuthController } from "./controllers";
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 class App extends Server {
 
@@ -16,11 +16,11 @@ class App extends Server {
     constructor() {
         super();
 
-        let winston = new WinstonLogger();
-        let logger = winston.logger; 
-        logger.debug('Logger in debug mode');
+        const winston = new WinstonLogger();
+        const logger = winston.logger;
+        logger.debug("Logger in debug mode");
 
-        let redisSession = new RedisSession();
+        const redisSession = new RedisSession();
         this.app.use(express.static(__dirname + appConfig.public_dist_folder));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,15 +31,15 @@ class App extends Server {
             cookie: {
                 secure: false,
                 httpOnly: true,
-                maxAge: appConfig.session_max_age
+                maxAge: appConfig.session_max_age,
             },
-            resave: false
+            resave: false,
         }));
         const userController = new UserController();
         const authController = new AuthController();
         super.addControllers([
             userController,
-            authController
+            authController,
         ]);
     }
 }

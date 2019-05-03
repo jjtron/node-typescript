@@ -13,6 +13,6 @@ export class UserController {
     @Get()
     @Middleware([a.middleware1, a.middleware2])
     private getAll(req: Request, res: Response): void {
-        
+        // do nothing
     }
 }

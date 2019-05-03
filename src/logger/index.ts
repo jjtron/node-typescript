@@ -10,7 +10,7 @@ export class WinstonLogger {
             colorize: true,
             showLevel: true,
             timestamp: true,
-            level: "debug"
+            level: "debug",
         });
     }
 }

@@ -7,7 +7,7 @@ export class AuthController {
 
     @Post("auth")
     private post(req: Request, res: Response): void {
-        if(req.session.key) {
+        if (req.session.key) {
             // if there is already a session key, the session is regenerated
             req.session.regenerate((err) => {
                 if (err) {
@@ -21,8 +21,8 @@ export class AuthController {
         }
     }
 
-    setUsername(req: Request, res: Response) {
-        req.session.key = { username: 'user:'+Math.random()}
-        res.status(200).json({msg: "get_all_called"});    
+    private setUsername(req: Request, res: Response) {
+        req.session.key = { username: "user:" + Math.random()};
+        res.status(200).json({msg: "get_all_called"});
     }
 }
