@@ -19,3 +19,9 @@ Compile to javascript
 
 Run as javascript  
 **node src/server.js**
+
+REDIS  
+START and keep running  
+**redis-server --daemonize yes**  
+STOP  
+**redis-cli shutdown**

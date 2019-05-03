@@ -11,7 +11,6 @@ import { EventEmitter } from "events";
 class App extends Server {
 
     public app: express.Application;
-    private logger: EventEmitter;
 
     constructor() {
         super();
