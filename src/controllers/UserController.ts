@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Controller, Delete, Get, Middleware, Post, Put } from "@overnightjs/core";
 import * as a from "../middleware";
 
-@Controller("")
+@Controller("user")
 export class UserController {
 
     @Get(":id")
@@ -10,9 +10,9 @@ export class UserController {
         return res.status(200).json({msg: req.params.id});
     }
 
-    @Get()
+    @Get("exists/:id")
     @Middleware([a.middleware1, a.middleware2])
-    private getAll(req: Request, res: Response): void {
-        // do nothing
+    private getAll(req: Request, res: Response): any {
+        return res.status(200).json({msg: "exists/" + req.params.id});
     }
 }

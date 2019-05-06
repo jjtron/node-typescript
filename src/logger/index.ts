@@ -3,13 +3,13 @@
 import { Logger, LoggerInstance, LoggerOptions, transports } from "winston";
 import { appConfig } from "../app-config";
 
-let logger: LoggerInstance = new Logger({});
+const logger: LoggerInstance = new Logger({});
 logger.add(transports.Console, {
     colorize: true,
     showLevel: true,
     timestamp: true,
     level: appConfig.loglevel,
 });
-logger.debug('Logger initialized in debug mode');
+logger.debug("Logger initialized in debug mode");
 
 export { logger };

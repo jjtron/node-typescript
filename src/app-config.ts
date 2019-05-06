@@ -1,3 +1,20 @@
+const unprotectedPaths = [
+    "/auth",
+];
+
+const protectedPaths = [
+    "/user/:id",
+    "/user/exists/:id",
+];
+
+const securePathsPattern = "^" + protectedPaths.join("|")
+    .replace(/\//g, "\\/")
+    .replace(/(\:([a-z])*?\|)/g, ".+|")
+    .replace(/(\/\:([a-z])[^\|]*?\/)/g, "/\.+\\/")
+    .replace(/(\/\:([a-z])*)$/, "/.+")
+    .replace(/\*/g, ".+")
+    .replace(/\|/g, "$\|^") + "$";
+
 export const appConfig = {
     redis_server_ip: "localhost",
     redis_server_port: 6379,
@@ -11,7 +28,7 @@ export const appConfig = {
 
     loglevel: "debug",
 
-    unprotectedPaths: [
-        "/auth"
-    ]
+    unprotectedPaths: unprotectedPaths,
+
+    securePathsPattern: securePathsPattern,
 };

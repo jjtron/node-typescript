@@ -32,13 +32,18 @@ class App extends Server {
             resave: false,
         }));
         this.app.use((req, res, next) => {
+            const securePathsPattern = new RegExp(appConfig.securePathsPattern);
             const path = parseUrl(req).pathname;
-            if (appConfig.unprotectedPaths.indexOf(path) === -1) {
-                const errorMsg = `Call to protected or un-known path: '${path}'`;
+            if (securePathsPattern.test(path)) {
+                const errorMsg = `Call to protected path without session key: '${path}'`;
                 logger.debug(errorMsg);
                 if (!req.session.key) { throw errorMsg; }
-            } else {
+            } else if (appConfig.unprotectedPaths.indexOf(path) >= 0) {
                 logger.debug(`Call to un-protected path: '${path}'`);
+            } else {
+                const errorMsg = `Call to un-known path: '${path}'`;
+                logger.debug(errorMsg);
+                if (!req.session.key) { throw errorMsg; }
             }
             next();
         });
