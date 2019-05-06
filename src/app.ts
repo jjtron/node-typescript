@@ -38,19 +38,17 @@ class App extends Server {
         this.app.use((req, res, next) => {
             const path = parseUrl(req).pathname;
             if (appConfig.unprotectedPaths.indexOf(path) === -1) {
-                logger.debug(`Call to protected or un-known path: '${path}'`);
-                if (!req.session.key) {
-                    throw 'Error';
-                }
+                const errorMsg = `Call to protected or un-known path: '${path}'`;
+                logger.debug(errorMsg);
+                if (!req.session.key) { throw errorMsg; }
             } else {
                 logger.debug(`Call to un-protected path: '${path}'`);
             }
             next();
-            //throw 'Error';
         });
         this.app.use((err, req, res, next) => {
             res.statusCode = 400;
-            res.send('Err');
+            res.send(err);
         });
         const userController = new UserController();
         const authController = new AuthController();
