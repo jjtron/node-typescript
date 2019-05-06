@@ -4,7 +4,7 @@ import * as session from "express-session";
 import * as parseUrl from "parseurl";
 import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
-import { WinstonLogger } from "./logger";
+import { logger } from "./logger";
 import { Server } from "@overnightjs/core";
 import { UserController, AuthController } from "./controllers";
 import { EventEmitter } from "events";
@@ -15,11 +15,7 @@ class App extends Server {
 
     constructor() {
         super();
-
-        const winston = new WinstonLogger();
-        const logger = winston.logger;
-        logger.debug("Logger in debug mode");
-
+        logger.debug("App construct");
         const redisSession = new RedisSession();
         this.app.use(express.static(__dirname + appConfig.public_dist_folder));
         this.app.use(bodyParser.json());

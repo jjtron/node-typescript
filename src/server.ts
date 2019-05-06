@@ -4,13 +4,7 @@
 
 import app from "./app";
 import * as http from "http";
-import { WinstonLogger } from "./logger";
-
-/**
- * Logger setup
- */
-const winston = new WinstonLogger();
-const logger = winston.logger;
+import { logger } from "./logger";
 
 /**
  * Get port from environment and store in Express.
