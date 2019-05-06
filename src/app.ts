@@ -7,7 +7,6 @@ import { appConfig } from "./app-config";
 import { logger } from "./logger";
 import { Server } from "@overnightjs/core";
 import { UserController, AuthController } from "./controllers";
-import { EventEmitter } from "events";
 
 class App extends Server {
 
@@ -33,12 +32,13 @@ class App extends Server {
         }));
         this.app.use((req, res, next) => {
             const securePathsPattern = new RegExp(appConfig.securePathsPattern);
+            const unprotectedPathsPattern = new RegExp(appConfig.unprotectedPathsPattern);
             const path = parseUrl(req).pathname;
             if (securePathsPattern.test(path)) {
                 const errorMsg = `Call to protected path without session key: '${path}'`;
                 logger.debug(errorMsg);
                 if (!req.session.key) { throw errorMsg; }
-            } else if (appConfig.unprotectedPaths.indexOf(path) >= 0) {
+            } else if (unprotectedPathsPattern.test(path)) {
                 logger.debug(`Call to un-protected path: '${path}'`);
             } else {
                 const errorMsg = `Call to un-known path: '${path}'`;

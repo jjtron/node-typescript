@@ -1,21 +1,32 @@
 const unprotectedPaths = [
     "/auth",
+    "/wss",
+    "/user/external/:id",
 ];
 
 const protectedPaths = [
-    "/user/:id",
+    "/user/id/:id",
     "/user/exists/:id",
 ];
 
-const securePathsPattern = "^" + protectedPaths.join("|")
-    .replace(/\//g, "\\/")
-    .replace(/(\:([a-z])*?\|)/g, ".+|")
-    .replace(/(\/\:([a-z])[^\|]*?\/)/g, "/\.+\\/")
-    .replace(/(\/\:([a-z])*)$/, "/.+")
-    .replace(/\*/g, ".+")
-    .replace(/\|/g, "$\|^") + "$";
+const securePathsPattern = "^" + protectedPaths.join("|");
+
+const unprotectedPathsPattern = "^" + unprotectedPaths.join("|");
+
+function regExDetails (pattern) {
+    let completePattern = pattern.replace(/\//g, "\\/")
+        .replace(/(\:([a-z])*?\|)/g, ".+|")
+        .replace(/(\/\:([a-z])[^\|]*?\/)/g, "/\.+\\/")
+        .replace(/(\/\:([a-z])*)$/, "/.+")
+        .replace(/\*/g, ".+")
+        .replace(/\|/g, "$\|^") + "$";
+    return completePattern;
+}
 
 export const appConfig = {
+    origin: "https://test217.m2-corp.com",
+    wss: "wss://test217.m2-corp.com/ngws",
+    
     redis_server_ip: "localhost",
     redis_server_port: 6379,
     redis_server_db: 0,
@@ -28,7 +39,9 @@ export const appConfig = {
 
     loglevel: "debug",
 
-    unprotectedPaths: unprotectedPaths,
+    unprotectedPathsPattern: regExDetails(unprotectedPathsPattern),
 
-    securePathsPattern: securePathsPattern,
+    securePathsPattern: regExDetails(securePathsPattern),
+
+    wsMaxPaylod: 200
 };

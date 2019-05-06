@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { Controller, Delete, Get, Middleware, Post, Put } from "@overnightjs/core";
 import * as a from "../middleware";
+import { wsEventEmitter } from "../ws";
+import { appConfig } from "../app-config";
 
 @Controller("")
 export class AuthController {
@@ -21,8 +23,13 @@ export class AuthController {
         }
     }
 
+    @Get("wss")
+    private get(req: Request, res: Response): any {
+        return res.status(200).json(appConfig.wss);
+    }
+    
     private setUsername(req: Request, res: Response) {
         req.session.key = { username: "user:" + Math.random()};
-        res.status(200).json({msg: "get_all_called"});
+        res.status(200).json({sessionID: req.sessionID});
     }
 }

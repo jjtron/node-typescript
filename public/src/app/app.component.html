@@ -1,8 +1,76 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h3>
-    Welcome to {{ title }}!
+	{{ title }}
   </h3>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <img width="100" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<h4>WebSocket ID</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{wsId}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Message</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{msgContent}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Message Source ID</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{msgSourceId}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Socket Status</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{socketStatus}}</div>
+		</div>
+	</div>
+	<hr>
+
+	<div class="row">
+		<div class="col-md-3">
+			<button (click)="send()">Send WS</button>&nbsp;
+			<button (click)="sendViaHttp()">Send HTTP</button>
+		</div>
+		<div class="col-md-5">
+			<div class="row">
+				<div class="col-md-1">
+					<label>Msg</label>
+				</div>
+				<div class="col-md-11">
+					<input type="text" (keydown)="keyDown($event)" [(ngModel)]="clientMessage" size="100" style="width: 100%;"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-3 text-right">
+					<label>Dest ID</label>
+				</div>
+				<div class="col-md-9">
+					<input type="text" [(ngModel)]="destinationID" size="100" style="width: 100%;"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1">
+			<button (click)="close()">Close</button>
+		</div>
+	</div>
+
+</div>

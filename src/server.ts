@@ -1,15 +1,17 @@
 /**
  * Module dependencies.
  */
-
 import app from "./app";
 import * as http from "http";
 import { logger } from "./logger";
+import { onConnection, createMessage, wsEventEmitter, Message } from "./ws";
+import * as WebSocket from "ws";
+import { appConfig } from "./app-config";
 
 /**
  * Get port from environment and store in Express.
  */
-let port = normalizePort(process.env.PORT || "8002");
+let port = normalizePort(process.env.PORT || "8001");
 app.set("port", port);
 const server = http.createServer(app);
 
@@ -18,6 +20,39 @@ const server = http.createServer(app);
  */
 server.listen(port, () => { logger.debug(`Listening on port ${port}`); });
 server.on("error", onError);
+
+/**
+ * Set up the Websocket Server
+ */
+const wss: any = new WebSocket.Server(
+    {
+        server: server,
+        verifyClient: (info) => {
+            logger.debug(`WebSocket Server verifyClient function`);
+            // check origin
+            if (info.origin !== appConfig.origin && info.origin !== 'http://localhost:4200') {
+                return false;
+            }
+            // check pattern of session cookie
+            if (!/^connect\.sid=s.+\..+$/.test(info.req.headers.cookie)) {
+                return false;
+            }
+            return true;
+        },
+        maxPayload: appConfig.wsMaxPaylod
+});
+
+// WebSocket Server on connection
+wss.on("connection", onConnection);
+
+// External event response on "messageEvent"
+wsEventEmitter.on("messageEvent", (msg: Message) => {
+    wss.clients.forEach(client => {
+        if (client.sessionID && client.sessionID === msg.destinationID) {
+            client.send(createMessage(msg.destinationID, msg.content, msg.sourceID));
+        }
+    });
+});
 
 /**
  * Normalize a port into a number, string, or false.
