@@ -18,7 +18,14 @@ Compile to javascript
 **tsc -p tsconfig.json**  
 
 Run as javascript  
-**node src/server.js**
+**node src/server.js**  
+
+RUN WITH NODEJS INSPECT  
+(some typescript compile errors may occur that need fixing for this to work)  
+**node --inspect --require /Users/jpetron/.npm-packages/lib/node_modules/ts-node/register ./src/server.ts**  
+
+debug with  
+**127.0.0.1:9229/json/list**  
 
 REDIS  
 START and keep running  
