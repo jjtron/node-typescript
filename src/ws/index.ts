@@ -2,6 +2,7 @@ import * as WebSocket from 'ws';
 import * as http from "http";
 import { EventEmitter } from "events";
 import { logger } from "../logger";
+import { reportMemoryUsage } from "../logger/memory-monitor";
 import { client } from "../session/client";
 import * as uuidv4 from "uuid/v4";
 
@@ -65,6 +66,7 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
             });
             ws.send(createMessage(extWs.sessionID, 'Log in', 'NodeJS server'));
             wsEventEmitter.emit('allDesinationIDs');
+            reportMemoryUsage();
         }
     });
 }
