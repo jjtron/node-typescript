@@ -48,7 +48,7 @@ wss.on("connection", onConnection);
 // External event response on "messageEvent"
 wsEventEmitter.on("messageEvent", (msg: Message) => {
     wss.clients.forEach(client => {
-        if (client.sessionID && client.sessionID === msg.destinationID) {
+        if (client.sessionID && client.readyState === WebSocket.OPEN && client.sessionID === msg.destinationID) {
             client.send(createMessage(msg.destinationID, msg.content, msg.sourceID));
         }
     });
@@ -57,16 +57,29 @@ wsEventEmitter.on("messageEvent", (msg: Message) => {
 wsEventEmitter.on("allDesinationIDs", () => {
     let allDestinationIDs = [];
     wss.clients.forEach(client => {
-        if (client.sessionID) {
+        if (client.sessionID && client.readyState === WebSocket.OPEN) {
             allDestinationIDs.push(client.sessionID);
         }
     });
     wss.clients.forEach(client => {
-        const i: number = allDestinationIDs.indexOf(client.sessionID);
-        const out: string[] = allDestinationIDs.slice(0, i).concat(allDestinationIDs.slice(i + 1));
-        client.send(JSON.stringify(out));
+        if (client.readyState === WebSocket.OPEN) {
+            const i: number = allDestinationIDs.indexOf(client.sessionID);
+            const out: string[] = allDestinationIDs.slice(0, i).concat(allDestinationIDs.slice(i + 1));
+            client.send(JSON.stringify(out));
+        }
     });
 });
+// ping all clients at regular interval; terminate client when dead
+setInterval(() => {
+    wss.clients.forEach(client => {
+        if (!client.isAlive) {
+            logger.debug(`${client.sessionID} is dead`);
+            return client.terminate();
+        }
+        client.isAlive = false;
+        client.ping(null, false);
+    });
+}, appConfig.wsPingInterval);
 
 /**
  * Normalize a port into a number, string, or false.

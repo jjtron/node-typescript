@@ -43,5 +43,7 @@ export const appConfig = {
 
     securePathsPattern: regExDetails(securePathsPattern),
 
-    wsMaxPaylod: 200
+    wsMaxPaylod: 200,
+
+    wsPingInterval: 60000
 };

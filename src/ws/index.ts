@@ -23,6 +23,7 @@ export class Message {
 
 interface ExtWebSocket extends WebSocket {
     sessionID: string;
+    isAlive: boolean;
 }
 
 export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
@@ -40,6 +41,11 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
         logger.debug(`Client disconnected - reason: ${err}`);
         wsEventEmitter.emit('allDesinationIDs');
     });
+
+    ws.on('pong', () => {
+        logger.debug(`${extWs.sessionID} is alive`);
+        extWs.isAlive = true;
+    });
     
     const id = decodeURIComponent(req.headers.cookie)
                 .replace("connect.sid=s:", "")
@@ -51,6 +57,7 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
         } else {
             logger.debug('Websockit connection session cookie verified');
             extWs.sessionID = uuidv4().substring(0, 13);
+            extWs.isAlive = true;
             ws.on('message', (msg: string) => {
                 const msgObj: Message = JSON.parse(msg);
                 if (msgObj.destinationID === extWs.sessionID) {
