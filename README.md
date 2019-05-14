@@ -34,6 +34,6 @@ STOP
 **redis-cli shutdown**  
 
 PACKAGE AND DEPLOY  
-**tsc -p tsconfig.json && cd ../ && rm node-typescript.tar.gz && tar -cvzf node-typescript.tar.gz --exclude='public/node_modules' --exclude='*/.git/*' node-typescript/ && scp node-typescript.tar.gz xxxxxxx@xx.xxx.x.xxx:~/**  
+**tsc -p tsconfig.json && cd ../ && rm node-typescript.tar.gz && tar -cvzf node-typescript.tar.gz --exclude='public/node_modules' --exclude='\*/.git/\*' node-typescript/ && scp node-typescript.tar.gz xxxxxxx@xx.xxx.x.xxx:~/**  
 
 **sudo cp -R test217/ test217bkp/ && sudo rm node-typescript.tar.gz && sudo rm -rf test217/ && sudo mv ~/node-typescript.tar.gz ./ && sudo tar -xzf node-typescript.tar.gz && sudo mv node-typescript/ test217/ && cd /var/www/html/test217/ && node src/server.js**
