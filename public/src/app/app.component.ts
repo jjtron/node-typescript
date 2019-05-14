@@ -60,7 +60,12 @@ export class AppComponent  implements OnInit {
                         }
                     },
                     (err) => console.error(err),
-                    () => this.socketStatus = "Closed"
+                    () => {
+                        this.socketStatus = "Closed";
+                        this.msgContent = ""
+                        this.msgSourceId = "";
+                        this.destinationIDs = [];
+                    }
                 );
             });
         });

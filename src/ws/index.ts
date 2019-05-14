@@ -33,10 +33,12 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
 
     ws.on('close', function(code, msg) {
         logger.debug('Connection closed: ', code, msg);
+        wsEventEmitter.emit('allDesinationIDs');
     });
 
     ws.on('error', (err) => {
         logger.debug(`Client disconnected - reason: ${err}`);
+        wsEventEmitter.emit('allDesinationIDs');
     });
     
     const id = decodeURIComponent(req.headers.cookie)
