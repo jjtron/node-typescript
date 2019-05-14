@@ -49,7 +49,7 @@ export class AppComponent  implements OnInit {
                 }
                 this.socket$.subscribe(
                     (response: Message | string[]) => {
-                        if (this.isMessage(response) {
+                        if (this.isMessage(response)) {
                             this.wsId = response.destinationID;
                             this.msgContent = response.content;
                             this.msgSourceId = response.sourceID;
