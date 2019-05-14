@@ -53,6 +53,20 @@ wsEventEmitter.on("messageEvent", (msg: Message) => {
         }
     });
 });
+// update all clients with a list of all desination IDs
+wsEventEmitter.on("allDesinationIDs", () => {
+    let allDestinationIDs = [];
+    wss.clients.forEach(client => {
+        if (client.sessionID) {
+            allDestinationIDs.push(client.sessionID);
+        }
+    });
+    wss.clients.forEach(client => {
+        const i: number = allDestinationIDs.indexOf(client.sessionID);
+        const out: string[] = allDestinationIDs.slice(0, i).concat(allDestinationIDs.slice(i + 1));
+        client.send(JSON.stringify(out));
+    });
+});
 
 /**
  * Normalize a port into a number, string, or false.

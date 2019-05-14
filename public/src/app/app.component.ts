@@ -29,6 +29,7 @@ export class AppComponent  implements OnInit {
     public socketStatus: string = "Closed";
     public userMessage: string;
     public destinationID: string;
+    public destinationIDs: string[];
 
     constructor(private http: HttpClient) {
     }
@@ -47,11 +48,16 @@ export class AppComponent  implements OnInit {
                     this.socket$ = webSocket(this.wss);
                 }
                 this.socket$.subscribe(
-                    (message: Message) => {
-                        this.wsId = message.destinationID;
-                        this.msgContent = message.content;
-                        this.msgSourceId = message.sourceID;
-                        this.socketStatus = "Open";
+                    (response: Message | string[]) => {
+                        if (this.isMessage(response) {
+                            this.wsId = response.destinationID;
+                            this.msgContent = response.content;
+                            this.msgSourceId = response.sourceID;
+                            this.socketStatus = "Open";
+                            document.getElementById("tab-title").innerHTML = this.wsId;
+                        } else {
+                            this.destinationIDs = response;
+                        }
                     },
                     (err) => console.error(err),
                     () => this.socketStatus = "Closed"
@@ -89,5 +95,12 @@ export class AppComponent  implements OnInit {
         ).subscribe(() => {
 
         });
+    }
+
+    isMessage(toBeDetermined: any): toBeDetermined is Message {
+        if((toBeDetermined as Message).content){
+            return true;
+        }
+        return false;
     }
 }

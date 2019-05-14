@@ -47,7 +47,7 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
             ws.close(4000, 'The user session cookie id was not found');
         } else {
             logger.debug('Websockit connection session cookie verified');
-            extWs.sessionID = uuidv4();
+            extWs.sessionID = uuidv4().substring(0, 13);
             ws.on('message', (msg: string) => {
                 const msgObj: Message = JSON.parse(msg);
                 if (msgObj.destinationID === extWs.sessionID) {
@@ -64,6 +64,7 @@ export const onConnection = (ws: WebSocket, req: http.IncomingMessage): any => {
                 }
             });
             ws.send(createMessage(extWs.sessionID, 'Log in', 'NodeJS server'));
+            wsEventEmitter.emit('allDesinationIDs');
         }
     });
 }

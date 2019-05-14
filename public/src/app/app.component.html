@@ -52,7 +52,7 @@
 					<label>Msg</label>
 				</div>
 				<div class="col-md-11">
-					<input type="text" (keydown)="keyDown($event)" [(ngModel)]="clientMessage" size="100" style="width: 100%;"/>
+					<input class="form-control" type="text" (keydown)="keyDown($event)" [(ngModel)]="clientMessage" size="100" style="width: 100%;"/>
 				</div>
 			</div>
 		</div>
@@ -62,7 +62,10 @@
 					<label>Dest ID</label>
 				</div>
 				<div class="col-md-9">
-					<input type="text" [(ngModel)]="destinationID" size="100" style="width: 100%;"/>
+					<select [(ngModel)]="destinationID" class="form-control">
+						<option value="" ></option>
+						<option *ngFor="let destId of destinationIDs; let i = index" value="{{destId}}">{{destId}}</option>
+					</select>
 				</div>
 			</div>
 		</div>
