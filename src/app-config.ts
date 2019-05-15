@@ -1,3 +1,5 @@
+import { logger } from "./logger";
+
 const unprotectedPaths = [
     "/auth",
     "/wss",
@@ -13,8 +15,8 @@ const securePathsPattern = "^" + protectedPaths.join("|");
 
 const unprotectedPathsPattern = "^" + unprotectedPaths.join("|");
 
-function regExDetails (pattern) {
-    let completePattern = pattern.replace(/\//g, "\\/")
+function regExDetails(pattern) {
+    const completePattern = pattern.replace(/\//g, "\\/")
         .replace(/(\:([a-z])*?\|)/g, ".+|")
         .replace(/(\/\:([a-z])[^\|]*?\/)/g, "/\.+\\/")
         .replace(/(\/\:([a-z])*)$/, "/.+")
@@ -26,7 +28,7 @@ function regExDetails (pattern) {
 export const appConfig = {
     origin: "https://test217.m2-corp.com",
     wss: "wss://test217.m2-corp.com/ngws",
-    
+
     redis_server_ip: "localhost",
     redis_server_port: 6379,
     redis_server_db: 0,
@@ -43,7 +45,22 @@ export const appConfig = {
 
     securePathsPattern: regExDetails(securePathsPattern),
 
-    wsMaxPaylod: 200,
+    wsPingInterval: 60000,
 
-    wsPingInterval: 60000
+    wssOptions: {
+        server: null,
+        verifyClient: (info) => {
+            logger.debug(`WebSocket Server verifyClient function`);
+            // check origin
+            if (info.origin !== appConfig.origin && info.origin !== "http://localhost:4200") {
+                return false;
+            }
+            // check pattern of session cookie
+            if (!/^connect\.sid=s.+\..+$/.test(info.req.headers.cookie)) {
+                return false;
+            }
+            return true;
+        },
+        maxPayload: 200,
+    },
 };

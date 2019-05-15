@@ -1,3 +1,6 @@
+/**
+ * Websocket Setup
+ */
 import * as WebSocket from 'ws';
 import * as http from "http";
 import { EventEmitter } from "events";
@@ -5,6 +8,7 @@ import { logger } from "../logger";
 import { reportMemoryUsage } from "../logger/memory-monitor";
 import { client } from "../session/client";
 import * as uuidv4 from "uuid/v4";
+import { appConfig } from "../app-config";
 
 export function createMessage(destinationID: string, content: string, sourceID: string, isBroadcast = false): string {
     return JSON.stringify(new Message(destinationID, content, sourceID, isBroadcast));
