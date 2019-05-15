@@ -24,8 +24,8 @@ export class UserController {
             {
                 destinationID: req.params.id,
                 content: req.body.content,
-                sourceID: req.body.sourceID
-            }
+                sourceID: req.body.sourceID,
+            },
         );
         return res.status(200).json({msg: "unprotected path"});
     }

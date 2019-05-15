@@ -25,7 +25,7 @@ server.on("error", onError);
 /**
  * Set up the Websocket Server
  */
-let options = appConfig.wssOptions;
+const options = appConfig.wssOptions;
 options.server = server;
 
 const wss: any = new WebSocket.Server(options);

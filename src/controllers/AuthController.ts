@@ -27,7 +27,7 @@ export class AuthController {
     private get(req: Request, res: Response): any {
         return res.status(200).json(appConfig.wss);
     }
-    
+
     private setUsername(req: Request, res: Response) {
         req.session.key = { username: "user:" + Math.random()};
         res.status(200).json({sessionID: req.sessionID});
