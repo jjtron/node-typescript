@@ -7,6 +7,8 @@ import { appConfig } from "./app-config";
 import { logger } from "./logger";
 import { Server } from "@overnightjs/core";
 import { UserController, AuthController } from "./controllers";
+import { Request, Response } from "express";
+import { IExtRequest } from "./interfaces";
 
 class App extends Server {
 
@@ -30,24 +32,25 @@ class App extends Server {
             },
             resave: false,
         }));
-        this.app.use((req, res, next) => {
+        this.app.use((req: Request, res: Response, next: any) => {
+            const extRequest = req as IExtRequest;
             const securePathsPattern = new RegExp(appConfig.securePathsPattern);
             const unprotectedPathsPattern = new RegExp(appConfig.unprotectedPathsPattern);
             const path = parseUrl(req).pathname;
             if (securePathsPattern.test(path)) {
                 const errorMsg = `Call to protected path without session key: '${path}'`;
                 logger.debug(errorMsg);
-                if (!req.session.key) { throw errorMsg; }
+                if (!extRequest.session.key) { throw errorMsg; }
             } else if (unprotectedPathsPattern.test(path)) {
                 logger.debug(`Call to un-protected path: '${path}'`);
             } else {
                 const errorMsg = `Call to un-known path: '${path}'`;
                 logger.debug(errorMsg);
-                if (!req.session.key) { throw errorMsg; }
+                if (!extRequest.session.key) { throw errorMsg; }
             }
             next();
         });
-        this.app.use((err, req, res, next) => {
+        this.app.use((err: any, req: Request, res: Response, next: any) => {
             res.statusCode = 400;
             res.send(err);
         });

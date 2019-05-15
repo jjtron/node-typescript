@@ -15,7 +15,7 @@ const securePathsPattern = "^" + protectedPaths.join("|");
 
 const unprotectedPathsPattern = "^" + unprotectedPaths.join("|");
 
-function regExDetails(pattern) {
+function regExDetails(pattern: string) {
     const completePattern = pattern.replace(/\//g, "\\/")
         .replace(/(\:([a-z])*?\|)/g, ".+|")
         .replace(/(\/\:([a-z])[^\|]*?\/)/g, "/\.+\\/")
@@ -49,7 +49,7 @@ export const appConfig = {
 
     wssOptions: {
         server: null,
-        verifyClient: (info) => {
+        verifyClient: (info: any) => {
             logger.debug(`WebSocket Server verifyClient function`);
             // check origin
             if (info.origin !== appConfig.origin && info.origin !== "http://localhost:4200") {
