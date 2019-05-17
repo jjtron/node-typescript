@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { webSocket } from "rxjs/webSocket";
+import { webSocket } from 'rxjs/webSocket';
 
 export class Message {
     constructor(
@@ -26,7 +26,7 @@ export class AppComponent  implements OnInit {
     public wsId: string;
     public msgSourceId: string;
     public msgContent: string;
-    public socketStatus: string = "Closed";
+    public socketStatus = 'Closed';
     public userMessage: string;
     public destinationID: string;
     public destinationIDs: string[];
@@ -41,7 +41,7 @@ export class AppComponent  implements OnInit {
             });
         })
         .then(() => {
-            this.http.post('/auth', {}).subscribe((resp: {sessionID: string;}) => {
+            this.http.post('/auth', {}).subscribe((resp: { sessionID: string; } ) => {
                 if (location.protocol === 'http:') {
                     this.socket$ = webSocket('ws://localhost:8001');
                 } else {
@@ -53,17 +53,17 @@ export class AppComponent  implements OnInit {
                             this.wsId = response.destinationID;
                             this.msgContent = response.content;
                             this.msgSourceId = response.sourceID;
-                            this.socketStatus = "Open";
-                            document.getElementById("tab-title").innerHTML = this.wsId;
+                            this.socketStatus = 'Open';
+                            document.getElementById('tab-title').innerHTML = this.wsId;
                         } else {
                             this.destinationIDs = response;
                         }
                     },
                     (err) => console.error(err),
                     () => {
-                        this.socketStatus = "Closed";
-                        this.msgContent = ""
-                        this.msgSourceId = "";
+                        this.socketStatus = 'Closed';
+                        this.msgContent = '';
+                        this.msgSourceId = '';
                         this.destinationIDs = [];
                     }
                 );
@@ -103,7 +103,7 @@ export class AppComponent  implements OnInit {
     }
 
     isMessage(toBeDetermined: any): toBeDetermined is Message {
-        if((toBeDetermined as Message).content){
+        if ((toBeDetermined as Message ).content) {
             return true;
         }
         return false;

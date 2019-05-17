@@ -4,7 +4,6 @@
 import app from "./app";
 import * as http from "http";
 import { logger } from "./logger";
-import { onConnection, createMessage, wsEventEmitter, Message } from "./ws";
 import * as WebSocket from "ws";
 import { appConfig } from "./app-config";
 import { WebSocketServerSetup } from "./wss";

@@ -8,7 +8,6 @@ import { logger } from "../logger";
 import { reportMemoryUsage } from "../logger/memory-monitor";
 import { client } from "../session/client";
 import * as uuidv4 from "uuid/v4";
-import { appConfig } from "../app-config";
 import { IExtWebSocket } from "../interfaces";
 
 export function createMessage(destinationID: string, content: string, sourceID: string, isBroadcast = false): string {

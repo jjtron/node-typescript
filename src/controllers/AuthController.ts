@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { Controller, Delete, Get, Middleware, Post, Put } from "@overnightjs/core";
+import { Request, Response } from "express";
+import { Controller, Get, Post } from "@overnightjs/core";
 import { appConfig } from "../app-config";
 import { IExtRequest } from "../interfaces";
 
