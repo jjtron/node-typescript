@@ -1,12 +1,15 @@
 Start back-end server with ts compiler in watch mode with  
 **npm run ts-dev**  
 
-Lint back-end code with  
-**tslint -c tslint.json 'src/\*\*/\*.ts'**  
-
 Start front-end with  
 **cd public/**  
 **npm start**  
+
+Open browser  
+**http://localhost:4200**  
+
+Lint back-end code with  
+**tslint -c tslint.json 'src/\*\*/\*.ts'**  
 
 Lint front-end code with  
 **cd public/**  
