@@ -11,7 +11,7 @@ export class AuthController {
         const extRequest = req as IExtRequest;
         if (extRequest.session.key) {
             // if there is already a session key, the session is regenerated
-            extRequest.session.regenerate((err) => {
+            extRequest.session.regenerate((err: any) => {
                 if (err) {
                     extRequest.json({success: false, error: err});
                 } else {
