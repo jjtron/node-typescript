@@ -4,6 +4,7 @@ const unprotectedPaths = [
     "/auth",
     "/wss",
     "/user/external/:id",
+    "/streams/pngfile",
 ];
 
 const protectedPaths = [

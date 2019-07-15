@@ -25,7 +25,7 @@ export class Message {
     ) { }
 }
 
-export const onConnection = (ws: WebSocket, req: http.IncomingMessage): void => {
+export const onConnection = (ws: WebSocket, req: http.IncomingMessage) => {
 
     logger.debug("Connection made");
 
