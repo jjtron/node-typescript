@@ -1,0 +1,72 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<h4>WebSocket ID</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{wsId}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Message</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{msgContent}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Message Source ID</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{msgSourceId}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<h4>Socket Status</h4>
+		</div>
+		<div class="col-md-9">
+			<div>{{socketStatus}}</div>
+		</div>
+	</div>
+	<hr>
+
+	<div class="row">
+		<div class="col-md-3">
+			<button (click)="send()">Send WS</button>&nbsp;
+			<button (click)="sendViaHttp()">Send HTTP</button>
+		</div>
+		<div class="col-md-5">
+			<div class="row">
+				<div class="col-md-1">
+					<label>Msg</label>
+				</div>
+				<div class="col-md-11">
+					<input class="form-control" type="text" (keydown)="keyDown($event)" [(ngModel)]="clientMessage" size="100" style="width: 100%;"/>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-3 text-right">
+					<label>Dest ID</label>
+				</div>
+				<div class="col-md-9">
+					<select [(ngModel)]="destinationID" class="form-control">
+						<option value="" ></option>
+						<option *ngFor="let destId of destinationIDs; let i = index" value="{{destId}}">{{destId}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-1">
+			<button (click)="close()">Close</button>
+		</div>
+	</div>
+
+</div>
+

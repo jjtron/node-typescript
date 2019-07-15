@@ -3,15 +3,23 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from "./app-routing.module";
+import { StreamsComponent } from './streams/streams.component';
+import { WebSocketsComponent } from './web-sockets/web-sockets.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        StreamsComponent,
+        WebSocketsComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]
