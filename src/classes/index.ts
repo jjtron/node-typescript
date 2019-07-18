@@ -1,1 +1,1 @@
-export * from "./MyWritable";
+export * from "./DuplexStream";
