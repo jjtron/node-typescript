@@ -2,20 +2,20 @@ import { Duplex } from "stream";
 import { logger } from "../logger";
 
 export class DuplexStream extends Duplex {
-	
-	private storageArray: Array<Buffer> = [];
+
 	public name;
 	public readCount = 0;
 	public readCountMax;
-	
+	private storageArray: Buffer[] = [];
+
     constructor(options, name) {
         super(options);
         this.name = name;
     }
     public _write(chunk, encoding, callback) {
 		this.storageArray.push(Buffer.from(chunk));
-    	this.readCountMax = this.storageArray.length;
-        callback();
+		this.readCountMax = this.storageArray.length;
+		callback();
     }
     public _read(size) {
     	if (this.readCount <= this.readCountMax) {
