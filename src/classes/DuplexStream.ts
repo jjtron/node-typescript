@@ -3,9 +3,9 @@ import { logger } from "../logger";
 
 export class DuplexStream extends Duplex {
 
-	public name;
-	public readCount = 0;
-	public readCountMax;
+	private name;
+	private readCount = 0;
+	private readCountMax;
 	private storageArray: Buffer[] = [];
 
     constructor(options, name) {
