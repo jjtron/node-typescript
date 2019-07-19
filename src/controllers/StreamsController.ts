@@ -11,32 +11,14 @@ export class StreamsController {
 	@Get("pngfile")
 	private get(req: Request, res: Response): any {
 
-		const asReadableName = "asReadable";
-		const asReadable = new DuplexStream({}, asReadableName);
+		const duplexStream = new DuplexStream();
 		const fileStream = FS.createReadStream(`${__dirname}/../assets/world.topo.bathy.200407.3x5400x2700.png`);
 
-		fileStream.on("data", (chunk) => {
-			this.writeDateToDuplex(
-				asReadable,
-				chunk,
-				"binary",
-				() => {
-					// do nothing for now
-				},
-			);
-		});
-
-		fileStream.on("end", () => {
-			asReadable.end();
-			res.on("pipe", () => {
-				logger.info("response object has been piped");
-			});
+		duplexStream.once("readable", () => {
 			res.header("Content-Type", "image/png");
-			asReadable.pipe(res);
+			duplexStream.pipe(res);
 		});
-	}
 
-	private writeDateToDuplex(writer, data, encoding, callback) {
-		writer.write(data, encoding, callback);
+		fileStream.pipe(duplexStream);
 	}
 }
