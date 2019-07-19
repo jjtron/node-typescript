@@ -1,2 +1,16 @@
-<p>Demo of a large file download ...</p>
-<img [src]="'/streams/pngfile'" width="100%"/>
+<p>Demo of large file downloads using duplex stream at the back-end ...</p>
+
+<div class="row">
+	<div class="col-md-6">
+		<p><button type="button" class="btn btn-primary" (click)="getPng()">Get png file</button></p>
+	</div>
+	<div class="col-md-6">
+		<p><button type="button" class="btn btn-primary" (click)="getText()">Get text file</button></p>
+		<label for="r-list">Valid JSON string replacement list: example {{ '{"3":"*"}' }}</label><br>
+		<label for="r-list">(All values of '3' replaced by '*')</label>
+		<p><input class="text-center" size="60" id="r-list" [(ngModel)]="replacementList" /></p>
+	</div>
+</div>
+
+<div *ngIf="showText" >{{text}}</div>
+<img *ngIf="showPng" [src]="'/streams/pngfile/large.png'" width="100%"/>
