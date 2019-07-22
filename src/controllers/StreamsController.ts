@@ -4,6 +4,7 @@ import * as a from "../middleware";
 import * as FS from "fs";
 import { DuplexStream } from "../classes";
 import { logger } from "../logger";
+import * as zlib from "zlib";
 
 @Controller("streams")
 export class StreamsController {
@@ -21,6 +22,7 @@ export class StreamsController {
 	private processRequest(req: Request, res: Response): any {
 		const filename = req.params.filename;
 		const duplexStream = new DuplexStream();
+		const gzip = zlib.createGzip();
 
 		if (filename.split(".")[1] === "txt") {
 			// if the request is for a text file
@@ -59,7 +61,8 @@ export class StreamsController {
 			} else {
 				res.header("Content-Type", "image.png");
 			}
-			duplexStream.pipe(res);
+			res.header("Content-Encoding", "gzip");
+			duplexStream.pipe(gzip).pipe(res);
 		});
 
 		fileStream.pipe(duplexStream);
