@@ -1,0 +1,11 @@
+.row .col-md-4 .card {
+	border-radius: 15px;
+	margin: 0 10px 10px 10px
+}
+.row .col-md-4 .card-body {
+	height: 100px;
+	background-color: rgba(9, 156, 255, 0.03);
+}
+#canvas-container {
+	margin-left: 3%; border-top: 5px solid rgba(9, 156, 255, 0.03);
+}

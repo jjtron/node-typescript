@@ -1,0 +1,93 @@
+<div class="card" style="border-radius: 40px;" (window:resize)="onResize($event)">
+	<div class="text-center">Dashboard</div>
+	<div class="card-body">
+
+		<div class="row">
+			<div class="offset-md-1 col-md-1">
+				<button mat-raised-button color="primary" (click)="daily()">Daily</button>
+			</div>
+			<div class="col-md-1">
+				<button mat-raised-button color="primary" (click)="monthly()">Monthly</button>
+			</div>
+			<div class="offset-md-7 col-md-2">
+		  		<div class="text-left" *ngIf="legendData">
+					<div *ngFor="let item of legendData" [ngStyle]="{'color': item.strokeStyle}">
+						<svg height="12" width="60" xmlns="http://www.w3.org/2000/svg">
+							<g transform="translate(0, 7)">
+								<line *ngFor="let n of [0,1,2,3,4]"
+								  	[attr.x1]="n * (item.lineDash[0] + item.lineDash[1])"
+								  	[attr.x2]="n * (item.lineDash[0] + item.lineDash[1]) + item.lineDash[0]"
+								  	y1="0" y2="0" [attr.stroke]="item.strokeStyle"
+								/>
+							</g>
+						</svg>
+						{{item.text}}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div [ngStyle]="{'height': canvasHeight, 'float': 'left', 'width': '3%', 'background-color': 'rgba(9, 156, 255, 0.03)', 'position': 'relative'}">
+			<div style="color: #888; position: absolute; top: 42%;
+				 width: 50px; transform-origin: center center;
+				 transform: rotate(270deg)">Count</div>
+		</div>
+		<div #canvas_container id="canvas-container">
+			<div>
+				<canvas baseChart width="4" height="1" [datasets]="lineChartData"
+					[labels]="lineChartLabels" [options]="lineChartOptions"
+					[colors]="lineChartColors" [legend]="false"
+					[chartType]="lineChartType" [plugins]="lineChartPlugins"
+					style="background-color: rgba(9, 156, 255, 0.03)">
+		  		</canvas>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+				  <div class="card-body">
+				    <h6 class="card-title text-center">Number of Studies</h6>
+				    <div class="text-center"><b>{{nStudies}}</b></div>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+				  <div class="card-body">
+				    <h6 class="card-title text-center">Number of Reports</h6>
+				    <div class="text-center"><b>{{nReports}}</b></div>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+				  <div class="card-body">
+				    <h6 class="card-title text-center">Percent Catalogued</h6>
+				    <div class="text-center"><b>{{prcntCatalogued}}</b></div>
+				  </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card">
+				  <div class="card-body">
+				    <h6 class="card-title text-center">Last Activity Timestamp</h6>
+				    <div class="text-center"><b>{{lastActivityTimestamp}}</b></div>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card">
+				  <div class="card-body">
+				    <h6 class="card-title text-center">Activity Alert</h6>
+				    <div class="text-center" style="margin-top: -7px;"><img src="assets/green.png" width="50"/></div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
