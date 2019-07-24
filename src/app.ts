@@ -6,7 +6,7 @@ import { RedisSession } from "./session";
 import { appConfig } from "./app-config";
 import { logger } from "./logger";
 import { Server } from "@overnightjs/core";
-import { UserController, AuthController, StreamsController } from "./controllers";
+import { UserController, AuthController, StreamsController, ExpController } from "./controllers";
 import { Request, Response } from "express";
 import { IExtRequest } from "./interfaces";
 
@@ -57,10 +57,12 @@ class App extends Server {
         const userController = new UserController();
         const authController = new AuthController();
         const streamsController = new StreamsController();
+        const expController = new ExpController();
         super.addControllers([
             userController,
             authController,
             streamsController,
+            expController,
         ]);
     }
 }
