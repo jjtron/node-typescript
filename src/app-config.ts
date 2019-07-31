@@ -5,7 +5,7 @@ const unprotectedPaths = [
     "/wss",
     "/user/external/:id",
     "/something",
-    "/dashboard",
+    "/dashboard/:frequency",
     "/streams/pngfile/:filename",
     "/streams/txtfile/:filename",
 ];
