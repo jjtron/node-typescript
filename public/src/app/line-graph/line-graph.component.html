@@ -9,7 +9,8 @@
 			<div class="col-md-1">
 				<button mat-raised-button color="primary" (click)="monthly()">Monthly</button>
 			</div>
-			<div class="offset-md-7 col-md-2">
+			<div class="col-md-6 text-center" style="color: #f00; font-size: 14px;">{{error}}</div>
+			<div class="offset-md-1 col-md-2">
 		  		<div class="text-left" *ngIf="legendData">
 					<div *ngFor="let item of legendData" [ngStyle]="{'color': item.strokeStyle}">
 						<svg height="12" width="60" xmlns="http://www.w3.org/2000/svg">
@@ -26,22 +27,20 @@
 				</div>
 			</div>
 		</div>
-		<div style="height: 5px;"></div> <!-- 5px spacer -->
-		<div style="background-color: rgba(9, 156, 255, 0.03); height: 5px;"></div> <!-- 5px top-border on canvas -->
-		<div [ngStyle]="{'height': canvasHeight, 'float': 'left', 'width': '3%', 'background-color': 'rgba(9, 156, 255, 0.03)', 'position': 'relative'}">
-			<div style="color: #888; position: absolute; top: 42%;
-				 width: 50px; transform-origin: center center;
-				 transform: rotate(270deg)">Count</div>
-		</div>
-		<div #canvas_container id="canvas-container">
-			<div>
-				<canvas id="chart3" baseChart width="4" height="1" [datasets]="lineChartData"
-					[labels]="lineChartLabels" [options]="lineChartOptions"
-					[colors]="lineChartColors" [legend]="false"
-					[chartType]="lineChartType" [plugins]="lineChartPlugins"
-					style="background-color: rgba(9, 156, 255, 0.03)">
-		  		</canvas>
-		  		
+		<div class="card" id="canvas-card">
+			<div class="card-body">
+				<div [ngStyle]="{'height': canvasHeight, 'float': 'left', 'width': '3%', 'background-color': 'rgba(255, 255, 255, 0.0)', 'position': 'relative'}">
+					<div id="canvas-count">Count</div>
+				</div>
+				<div #canvas_container id="canvas-container">
+					<div>
+						<canvas baseChart width="4" height="1" [datasets]="lineChartData"
+							[labels]="lineChartLabels" [options]="lineChartOptions"
+							[colors]="lineChartColors" [legend]="false"
+							[chartType]="lineChartType" [plugins]="lineChartPlugins">
+				  		</canvas>
+					</div>
+				</div>
 			</div>
 		</div>
 		<br>

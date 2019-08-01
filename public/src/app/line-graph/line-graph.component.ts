@@ -49,6 +49,7 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
 	public nReports: number = 10;
 	public prcntCatalogued: number = 100;
 	public lastActivityTimestamp: string = '7/17/2019 15:32:10';
+	public error: string;
 
 	constructor(private httpClient: HttpClient) {
 
@@ -56,7 +57,7 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
 
 	public ngOnInit() {
         document.getElementById('daily-button').focus();
-    	this.setChartOptions(0, 0);
+    	this.setChartOptions(0, 0, 'daily');
         this.daily();
 	}
 
@@ -64,30 +65,43 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
 		this.onResize();
 	}
 
-	private getData(frequency: string) {
-		return this.httpClient.get<any>(`/dashboard/${frequency}?t=${Date.now()}`, httpOptions);
-	}
-
 	public daily() {
 		this.getData('daily').subscribe((backendResponse: any) => {
-			this.lineChartLabels = Array.from(
-				{ length: DAYS_IN_MONTH },
-				(x, i) => i + 1 + ''
-			);
-			this.setLineChartData(backendResponse, 'daily');
-		});
+			if (backendResponse.success) {
+				this.lineChartLabels = Array.from(
+					{ length: DAYS_IN_MONTH },
+					(x, i) => i + 1 + ''
+				);
+				this.setLineChartData(backendResponse, 'daily');
+			}
+		},
+		(e) => { this.onError(e); });
 	}
 
 	public monthly() {
 		this.getData('monthly').subscribe((backendResponse: any) => {
-			let labels = MONTH_LABELS.slice(0);
-			for (let i = 0; i < NOW.getMonth(); i++) {
-				labels.push(labels.shift());
+			if (backendResponse.success) {
+				let labels = MONTH_LABELS.slice(0);
+				for (let i = 0; i < NOW.getMonth(); i++) {
+					labels.push(labels.shift());
+				}
+				labels.push(MONTH_LABELS[NOW.getMonth()]);
+				this.lineChartLabels = labels;
+				this.setLineChartData(backendResponse, 'monthly');
 			}
-			labels.push(MONTH_LABELS[NOW.getMonth()]);
-			this.lineChartLabels = labels;
-			this.setLineChartData(backendResponse, 'monthly');
-		});
+		},
+		(e) => { this.onError(e); });
+	}
+
+	public onResize() {
+		setTimeout(() => {
+			this.canvasHeight = this.canvasContainer.nativeElement.offsetHeight + 'px';
+		}, 0);
+	}
+
+	private getData(frequency: string) {
+		this.error = '';
+		return this.httpClient.get<any>(`/dashboard/${frequency}?t=${Date.now()}`, httpOptions);
 	}
 
 	private setLineChartData(backendResponse: any, frequency: string) {
@@ -96,13 +110,14 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
     	this.lineChartData[1].data = this.backendResponse.data[frequency].reports;
     	let max = this.getMaxDataValue(frequency);
     	let steps = this.getSteps(max);
-    	this.setChartOptions(max - max % steps + steps, steps);
+    	this.setChartOptions(max - max % steps + steps, steps, frequency);
         if (!this.legendData) {
         	this.legendData = this.chartComponent.chart.generateLegend();
         }
 	}
 
-	private setChartOptions(max: number, stepSize: number) {
+	private setChartOptions(max: number, stepSize: number, frequency) {
+		let titlePrefix = (frequency === 'daily') ? MONTH_LABELS[NOW.getMonth()] : '';
 		this.lineChartOptions = {
   			responsive: true,
   			scales: {
@@ -121,7 +136,6 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	            custom: function(tooltipModel) {
   	                // Tooltip Element
   	                let tooltipEl = document.getElementById('chartjs-tooltip');
-
   	                // Create element on first render
   	                if (!tooltipEl) {
   	                    tooltipEl = document.createElement('div');
@@ -129,13 +143,11 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	                    tooltipEl.innerHTML = '<table></table>';
   	                    document.body.appendChild(tooltipEl);
   	                }
-
   	                // Hide if no tooltip
   	                if (tooltipModel.opacity === 0) {
   	                    tooltipEl.style.opacity = '0';
   	                    return;
   	                }
-
   	                // Set caret Position
   	                tooltipEl.classList.remove('above', 'below', 'no-transform');
   	                if (tooltipModel.yAlign) {
@@ -143,23 +155,18 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	                } else {
   	                    tooltipEl.classList.add('no-transform');
   	                }
-
   	                function getBody(bodyItem) {
   	                    return bodyItem.lines;
   	                }
-
   	                // Set Text
   	                if (tooltipModel.body) {
   	                    let titleLines = tooltipModel.title || [];
   	                    let bodyLines = tooltipModel.body.map(getBody);
-
   	                    let innerHtml = '<thead>';
-
   	                    titleLines.forEach(function(title) {
-  	                        innerHtml += '<tr><th>' +  MONTH_LABELS[NOW.getMonth()] + ' ' + title + '</th></tr>';
+  	                        innerHtml += '<tr><th>' +  titlePrefix + ' ' + title + '</th></tr>';
   	                    });
   	                    innerHtml += '</thead><tbody>';
-
   	                    bodyLines.forEach(function(body, i) {
   	                        let colors = tooltipModel.labelColors[i];
   	                        let style = 'background:' + colors.backgroundColor;
@@ -169,14 +176,11 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
   	                    });
   	                    innerHtml += '</tbody>';
-
   	                    const tableRoot = tooltipEl.querySelector('table');
   	                    tableRoot.innerHTML = innerHtml;
   	                }
-
   	                // `this` will be the overall tooltip
   	                const position = this._chart.canvas.getBoundingClientRect();
-
   	                // Display, position, and set styles for font
   	                tooltipEl.style.opacity = '1';
   	                tooltipEl.style['background-color'] = 'rgb(140, 197, 64, 0.75)';
@@ -223,9 +227,11 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
 		}
 	}
 
-	public onResize() {
-		setTimeout(() => {
-			this.canvasHeight = this.canvasContainer.nativeElement.offsetHeight + 'px';
-		}, 0);
+	private onError(e: any) {
+		this.error = e.error.errorMsg;
+		this.setChartOptions(10, 1, '');
+		this.lineChartLabels = [];
+    	this.lineChartData[0].data = [];
+    	this.lineChartData[1].data = [];
 	}
 }

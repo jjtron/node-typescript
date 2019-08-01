@@ -1,11 +1,33 @@
-.row .col-md-4 .card {
+.row .col-md-4 .card, #canvas-card {
 	border-radius: 15px;
-	margin: 0 10px 10px 10px
-}
-.row .col-md-4 .card-body {
-	height: 100px;
 	background-color: rgba(9, 156, 255, 0.03);
 }
+
+.row .col-md-4 .card {
+	margin: 0 10px 10px 10px;
+}
+
+.row .col-md-4 {
+	padding: 5px;
+}
+
+#canvas-card .card-body {
+	padding: 5px;
+}
+
+#canvas-count {
+	color: #888;
+	position: absolute;
+	top: 46%;
+	width: 50px;
+	transform-origin: center center;
+	transform: rotate(270deg);
+}
+
+.row .col-md-4 .card-body {
+	height: 100px;
+}
+
 #canvas-container {
-	margin-left: 3%; border-top: 5px solid rgba(9, 156, 255, 0.03);
+	margin-left: 3%;
 }
