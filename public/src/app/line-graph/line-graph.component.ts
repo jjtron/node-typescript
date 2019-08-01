@@ -141,12 +141,23 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	                    tooltipEl = document.createElement('div');
   	                    tooltipEl.id = 'chartjs-tooltip';
   	                    tooltipEl.innerHTML = '<table></table>';
+  	  	                tooltipEl.style['background-color'] = 'rgb(140, 197, 64, 0.75)';
+  	  	                tooltipEl.style['border-radius'] = '5px';
+  	  	                tooltipEl.style.border = 'solid 1px black';
+  	  	                tooltipEl.style.position = 'absolute';
+  	  	                tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
+  	  	                tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+  	  	                tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
+  	  	                tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+  	                	tooltipEl.style.pointerEvents = 'none';
   	                    document.body.appendChild(tooltipEl);
   	                }
   	                // Hide if no tooltip
   	                if (tooltipModel.opacity === 0) {
   	                    tooltipEl.style.opacity = '0';
   	                    return;
+  	                } else {
+  	  	                tooltipEl.style.opacity = '1';
   	                }
   	                // Set caret Position
   	                tooltipEl.classList.remove('above', 'below', 'no-transform');
@@ -168,32 +179,16 @@ export class LineGraphComponent  implements OnInit, AfterViewInit {
   	                    });
   	                    innerHtml += '</thead><tbody>';
   	                    bodyLines.forEach(function(body, i) {
-  	                        let colors = tooltipModel.labelColors[i];
-  	                        let style = 'background:' + colors.backgroundColor;
-  	                        style += '; border-color:' + colors.borderColor;
-  	                        style += '; border-width: 2px';
-  	                        let span = '<span style="' + style + '"></span>';
-  	                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
+  	                        innerHtml += '<tr><td>' + body + '</td></tr>';
   	                    });
   	                    innerHtml += '</tbody>';
   	                    const tableRoot = tooltipEl.querySelector('table');
   	                    tableRoot.innerHTML = innerHtml;
   	                }
-  	                // `this` will be the overall tooltip
+  	           		// Display, position
   	                const position = this._chart.canvas.getBoundingClientRect();
-  	                // Display, position, and set styles for font
-  	                tooltipEl.style.opacity = '1';
-  	                tooltipEl.style['background-color'] = 'rgb(140, 197, 64, 0.75)';
-  	                tooltipEl.style['border-radius'] = '5px';
-  	                tooltipEl.style.border = 'solid 1px black';
-  	                tooltipEl.style.position = 'absolute';
   	                tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
   	                tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-  	                tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-  	                tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
-  	                tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-  	                tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
-  	                tooltipEl.style.pointerEvents = 'none';
   	            }
   	        },
   			legendCallback: this.getLegendCallback
