@@ -9,6 +9,7 @@ import { WebSocketsComponent } from './web-sockets/web-sockets.component';
 import { HomeComponent } from './home/home.component';
 import { LineGraphComponent } from './line-graph/line-graph.component';
 import { ChartsModule } from 'ng2-charts';
+import { ObservablesComponent } from './observables/observables.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ChartsModule } from 'ng2-charts';
         StreamsComponent,
         WebSocketsComponent,
         HomeComponent,
-        LineGraphComponent
+        LineGraphComponent,
+        ObservablesComponent
     ],
     imports: [
         BrowserModule,
