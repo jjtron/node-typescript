@@ -26,6 +26,16 @@ export class ObservablesComponent implements OnInit {
 
 	constructor() {
 		
+		// DEMO DIRT SIMPLE EXAMPLE //////////////////////////////////////////
+		new Observable(
+				(obsrvr) => {obsrvr.next(1)}
+			)
+			.subscribe(
+				{ next: (x) => console.log(x) }
+			);
+		// END DIRT SIMPLE EXAMPLE //////////////////////////////////////////
+
+		
 	    // DEMO 0 //////////////////////////////////////////
 		/*
 		 * An observable can be created by using the new keyword (as in constructor).
@@ -64,7 +74,6 @@ export class ObservablesComponent implements OnInit {
 				}, 0);
 			},
 			error(e) {
-				console.log(e);
 				document.getElementById('demo-method-a-error').innerHTML = 'A ' + e;
 				document.getElementById('demo-method-a-complete').innerHTML = '';
 			},
