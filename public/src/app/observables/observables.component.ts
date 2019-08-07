@@ -1,13 +1,12 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, Scheduler } from 'rxjs';
 import { of, interval, timer } from 'rxjs';
 import { 
-		 map, filter, catchError, tap, mapTo, share,
-		 pluck, shareReplay, take, delay, concatMap
+		 map, filter, catchError, tap, mapTo, share, concatAll, merge,
+		 pluck, shareReplay, take, delay, concatMap, mergeAll,
 	   } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
 selector: 'app-observables',
@@ -26,6 +25,17 @@ export class ObservablesComponent implements OnInit {
 
 	constructor() {
 		
+		// DEMO 2 HIGH ORDER OBSERVABLES ///////////////////////
+		const highOrderObs = of(
+			ajax({url: 'delay-response?delaytime=3000', responseType: 'text'}),
+			ajax({url: 'delay-response?delaytime=2000', responseType: 'text'}),
+			ajax({url: 'delay-response?delaytime=1000', responseType: 'text'}),
+			of({response: 1}, {response: 2}, {response: 3})
+		);
+		highOrderObs.pipe(concatAll()).subscribe(ret => console.log(ret.response));
+		// END DEMO 2 //////////////////////////////////////////
+		
+		/*
 		// DEMO DIRT SIMPLE EXAMPLE //////////////////////////////////////////
 		new Observable(
 				(obsrvr) => {obsrvr.next(1)}
@@ -37,14 +47,14 @@ export class ObservablesComponent implements OnInit {
 
 		
 	    // DEMO 0 //////////////////////////////////////////
-		/*
-		 * An observable can be created by using the new keyword (as in constructor).
-		 * The argument to ne constructor is a FUNCTION.
-		 * The argument to that FUNCTION is an OBSERVER (observer).
-		 * That OBSERVER optionally defines .next, .complete, and .error.
-		 * 
-		 * The FUNTION has to return an unsubscribe() definition.
-		 */
+		//
+		// An observable can be created by using the new keyword (as in constructor).
+		// The argument to ne constructor is a FUNCTION.
+		// The argument to that FUNCTION is an OBSERVER (observer).
+		// That OBSERVER optionally defines .next, .complete, and .error.
+		// 
+		// The FUNTION has to return an unsubscribe() definition.
+		//
 		function sequenceSubscriber(observer) {
 			let i = 1;
 			observer.next(i);
@@ -110,6 +120,7 @@ export class ObservablesComponent implements OnInit {
 			concatMap(val => of(`after delay of ${val} seconds`).pipe(delay((val === 0) ? 0 : 1000)))
 		).subscribe(myObserver);
 		// END DEMO 1 //////////////////////////////////////////
+		*/
 
   	}
 

@@ -1,18 +1,8 @@
 import { Request, Response } from "express";
 import { Controller, Get, Middleware, Post } from "@overnightjs/core";
-import { Https } from "../classes";
 
 @Controller("")
 export class ExpController {
-
-    @Get("something")
-    private get1(req: Request, res: Response): any {
-		const https = new Https();
-		https.get().then((r: any) => {
-			res.header('Content-Type', 'text/html; charset=utf-8')
-			r.pipe(res);
-		});
-    }
 
     @Get("dashboard/:frequency")
     private get2(routeRequest: Request, routeResponse: Response): any {
@@ -31,5 +21,14 @@ export class ExpController {
 				}
 			}
 		});
+    }
+
+    @Get("delay-response")
+    private get1(req: Request, res: Response): any {
+    	const delay = req.query.delaytime;
+		setTimeout(() => {
+			res.header('Content-Type', 'plain/text');
+			res.send('response delayed by ' + delay + ' milliseconds');
+		}, delay);
     }
 }
