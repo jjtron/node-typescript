@@ -1,5 +1,5 @@
 import * as WebSocket from "ws";
-import { Request, express } from "express";
+import { Request, Express } from "express";
 
 export interface IExtWebSocket extends WebSocket {
     sessionID: string;
