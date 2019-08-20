@@ -5,13 +5,15 @@ import { StreamsComponent } from './streams/streams.component';
 import { WebSocketsComponent } from './web-sockets/web-sockets.component';
 import { LineGraphComponent } from './line-graph/line-graph.component';
 import { ObservablesComponent } from './observables/observables.component';
+import { ProvidersComponent } from './providers/providers.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'web-sockets', component: WebSocketsComponent },
     { path: 'streams', component: StreamsComponent },
     { path: 'line-graph', component: LineGraphComponent },
-    { path: 'observables', component: ObservablesComponent }
+    { path: 'observables', component: ObservablesComponent },
+    { path: 'providers', component: ProvidersComponent }
 ];
 
 @NgModule({

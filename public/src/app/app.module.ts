@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { LineGraphComponent } from './line-graph/line-graph.component';
 import { ChartsModule } from 'ng2-charts';
 import { ObservablesComponent } from './observables/observables.component';
+import { ProvidersComponent } from './providers/providers.component';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { ObservablesComponent } from './observables/observables.component';
         WebSocketsComponent,
         HomeComponent,
         LineGraphComponent,
-        ObservablesComponent
+        ObservablesComponent,
+        ProvidersComponent
     ],
     imports: [
         BrowserModule,
