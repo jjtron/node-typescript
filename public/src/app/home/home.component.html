@@ -1,4 +1,16 @@
-<p><a [routerLink]="['/web-sockets']">Web Sockets</a></p>
-<p><a [routerLink]="['/streams']">Streams</a></p>
-<p><a [routerLink]="['/line-graph']">Line Graph</a></p>
-<p><a [routerLink]="['/observables']">Observables</a></p>
+<div class="row">
+	<div class="col-md-3">
+		<p><a [routerLink]="['/web-sockets']">Web Sockets</a></p>
+		<p><a [routerLink]="['/streams']">Streams</a></p>
+		<p><a [routerLink]="['/line-graph']">Line Graph</a></p>
+		<p><a [routerLink]="['/observables']">Observables</a></p>
+		<p><a [routerLink]="['/providers']">Providers</a></p>
+	</div>
+	<div class="col-md-9">
+		<div class="container-fluid sass-bg-color">
+			SASS DEMO: This div background color define by class 'sass-bg-color' and partial file '_partial1' and var color '$myColor'
+			<h3>H3 element style defined by mixins: 'important-text' and 'mixin-color' </h3>
+			<h3 class="sass-extend-demo">H3 element style defined by @extend h3 above (width depends on random())</h3>
+		</div>
+	</div>
+</div>

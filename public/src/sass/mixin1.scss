@@ -1,0 +1,8 @@
+@mixin important-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@mixin mixin-color($mixin-color) {
+  color: $mixin-color;
+}

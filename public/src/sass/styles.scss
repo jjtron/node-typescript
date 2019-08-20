@@ -1,0 +1,16 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "partial1";
+@import "import1";
+@import "mixin1";
+
+h3 {
+	@include important-text;
+	@include mixin-color($mixin-color);
+}
+
+h3.sass-extend-demo {
+	@extend h3;
+	font-family: Courier New;
+	border: 1px solid black;
+	width: 100% * random();
+}
