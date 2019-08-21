@@ -18,6 +18,9 @@ import { ArtistComponent } from './providers/music-player/artist.component';
 import { AlbumComponent } from './providers/music-player/album.component';
 import { SongComponent } from './providers/music-player/song.component';
 import { ClrIconModule } from '@clr/angular';
+import { ParentComponent } from './chng-detection-strtgy/parent.component';
+import { ChildComponent } from './chng-detection-strtgy/child.component';
+import { Child2Component } from './chng-detection-strtgy/child2.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +36,10 @@ import { ClrIconModule } from '@clr/angular';
         PlayerComponent,
         ArtistComponent,
         AlbumComponent,
-        SongComponent
+        SongComponent,
+        ParentComponent,
+        ChildComponent,
+        Child2Component
     ],
     imports: [
         BrowserModule,
