@@ -11,6 +11,8 @@ import { LineGraphComponent } from './line-graph/line-graph.component';
 import { ChartsModule } from 'ng2-charts';
 import { ObservablesComponent } from './observables/observables.component';
 import { ProvidersComponent } from './providers/providers.component';
+import { TodoComponent } from './providers/todos/todo.component';
+import { TodoLabelComponent } from './providers/todos/todo-label.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +22,9 @@ import { ProvidersComponent } from './providers/providers.component';
         HomeComponent,
         LineGraphComponent,
         ObservablesComponent,
-        ProvidersComponent
+        ProvidersComponent,
+        TodoComponent,
+        TodoLabelComponent
     ],
     imports: [
         BrowserModule,
