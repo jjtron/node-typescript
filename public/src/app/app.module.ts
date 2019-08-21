@@ -13,6 +13,11 @@ import { ObservablesComponent } from './observables/observables.component';
 import { ProvidersComponent } from './providers/providers.component';
 import { TodoComponent } from './providers/todos/todo.component';
 import { TodoLabelComponent } from './providers/todos/todo-label.component';
+import { PlayerComponent } from './providers/music-player/player.component';
+import { ArtistComponent } from './providers/music-player/artist.component';
+import { AlbumComponent } from './providers/music-player/album.component';
+import { SongComponent } from './providers/music-player/song.component';
+import { ClrIconModule } from '@clr/angular';
 
 @NgModule({
     declarations: [
@@ -24,14 +29,19 @@ import { TodoLabelComponent } from './providers/todos/todo-label.component';
         ObservablesComponent,
         ProvidersComponent,
         TodoComponent,
-        TodoLabelComponent
+        TodoLabelComponent,
+        PlayerComponent,
+        ArtistComponent,
+        AlbumComponent,
+        SongComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         FormsModule,
         AppRoutingModule,
-        ChartsModule
+        ChartsModule,
+        ClrIconModule
     ],
     providers: [],
     bootstrap: [AppComponent]

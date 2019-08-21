@@ -1,0 +1,66 @@
+my-artist, my-album, my-song {
+  display: block;
+  padding: 0.2rem 0;
+  border-radius: 4px;
+}
+
+my-album, my-song {
+  padding-left: 1rem;
+}
+
+my-artist {
+  font-size: 0.8rem;
+}
+
+my-artist > clr-icon {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: bottom;
+    color: #660092;
+}
+
+my-album {
+  font-size: 0.7rem;
+}
+
+my-album > clr-icon {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: bottom;
+    color: #007E7A;
+}
+
+my-song {
+  font-size: 0.6rem;
+}
+
+my-song clr-icon {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: bottom;
+  color: #0065AB;
+}
+
+my-song.playing {
+    background: #D9E4EA;
+    color: #000;
+}
+
+my-song.playing clr-icon {
+  color: #314351;
+}
+
+
+my-song button {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+}
