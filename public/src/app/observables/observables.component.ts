@@ -35,7 +35,7 @@ export class ObservablesComponent implements OnInit {
 		highOrderObs.pipe(concatAll()).subscribe(ret => console.log(ret.response));
 		// END DEMO 2 //////////////////////////////////////////
 		
-		/*
+
 		// DEMO DIRT SIMPLE EXAMPLE //////////////////////////////////////////
 		new Observable(
 				(obsrvr) => {obsrvr.next(1)}
@@ -120,7 +120,7 @@ export class ObservablesComponent implements OnInit {
 			concatMap(val => of(`after delay of ${val} seconds`).pipe(delay((val === 0) ? 0 : 1000)))
 		).subscribe(myObserver);
 		// END DEMO 1 //////////////////////////////////////////
-		*/
+
 
   	}
 
