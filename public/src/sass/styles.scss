@@ -13,4 +13,5 @@ h3.sass-extend-demo {
 	font-family: Courier New;
 	border: 1px solid black;
 	width: 100% * random();
+	min-width: fit-content;
 }
