@@ -9,6 +9,7 @@ import { ProvidersComponent } from './providers/providers.component';
 import { ParentComponent } from './chng-detection-strtgy/parent.component';
 import { DemoResolver } from './_resolvers/demo.resolver';
 import { ResolverDemo }  from './resolver-demo/resolver.demo';
+import { DirectiveDemoComponent }  from './directive-demo/directive-demo.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
     	path: 'resolver-demo',
     	component: ResolverDemo,
     	resolve: { demo_resolver: DemoResolver }
-    }
+    },
+    { path: 'directive-demo', component: DirectiveDemoComponent }
 ];
 
 @NgModule({

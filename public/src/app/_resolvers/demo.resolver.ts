@@ -6,7 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 
-@Injectable()
+// using `providedIn: 'root'`, so this does not have to be added to the app.module providers[]
+@Injectable({
+  providedIn: 'root'
+})
 export class DemoResolver implements Resolve<Observable<any>> {
 
   constructor(private http: HttpClient) {}

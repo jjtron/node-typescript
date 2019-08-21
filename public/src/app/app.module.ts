@@ -21,8 +21,9 @@ import { ClrIconModule } from '@clr/angular';
 import { ParentComponent } from './chng-detection-strtgy/parent.component';
 import { ChildComponent } from './chng-detection-strtgy/child.component';
 import { Child2Component } from './chng-detection-strtgy/child2.component';
-import { DemoResolver } from './_resolvers/demo.resolver';
 import { ResolverDemo }  from './resolver-demo/resolver.demo';
+import { CustomButton }  from './_directives/custom.button';
+import { DirectiveDemoComponent }  from './directive-demo/directive-demo.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,9 @@ import { ResolverDemo }  from './resolver-demo/resolver.demo';
         ParentComponent,
         ChildComponent,
         Child2Component,
-        ResolverDemo
+        ResolverDemo,
+        CustomButton,
+        DirectiveDemoComponent
     ],
     imports: [
         BrowserModule,
@@ -52,9 +55,7 @@ import { ResolverDemo }  from './resolver-demo/resolver.demo';
         ChartsModule,
         ClrIconModule
     ],
-    providers: [
-		DemoResolver
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
