@@ -10,6 +10,7 @@ import { ParentComponent } from './chng-detection-strtgy/parent.component';
 import { DemoResolver } from './_resolvers/demo.resolver';
 import { ResolverDemo }  from './resolver-demo/resolver.demo';
 import { DirectiveDemoComponent }  from './directive-demo/directive-demo.component';
+import { CanActivateRouteGuard } from './_guards/can-activate-route.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
     { path: 'streams', component: StreamsComponent },
     { path: 'line-graph', component: LineGraphComponent },
     { path: 'observables', component: ObservablesComponent },
-    { path: 'providers', component: ProvidersComponent },
+    { path: 'providers', component: ProvidersComponent, canActivate: [CanActivateRouteGuard]},
     { path: 'chng-detection-strtgy', component: ParentComponent },
     {
     	path: 'resolver-demo',
