@@ -21,6 +21,8 @@ import { ClrIconModule } from '@clr/angular';
 import { ParentComponent } from './chng-detection-strtgy/parent.component';
 import { ChildComponent } from './chng-detection-strtgy/child.component';
 import { Child2Component } from './chng-detection-strtgy/child2.component';
+import { DemoResolver } from './_resolvers/demo.resolver';
+import { ResolverDemo }  from './resolver-demo/resolver.demo';
 
 @NgModule({
     declarations: [
@@ -39,7 +41,8 @@ import { Child2Component } from './chng-detection-strtgy/child2.component';
         SongComponent,
         ParentComponent,
         ChildComponent,
-        Child2Component
+        Child2Component,
+        ResolverDemo
     ],
     imports: [
         BrowserModule,
@@ -49,7 +52,9 @@ import { Child2Component } from './chng-detection-strtgy/child2.component';
         ChartsModule,
         ClrIconModule
     ],
-    providers: [],
+    providers: [
+		DemoResolver
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
