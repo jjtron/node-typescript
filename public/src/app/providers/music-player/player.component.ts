@@ -1,4 +1,4 @@
-import { Component, Input, InjectionToken } from '@angular/core';
+import { Component, Input, InjectionToken, Inject } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Artist, Song } from '../../_models/music-player.models';
@@ -15,4 +15,9 @@ export const PLAYING = new InjectionToken<Subject<Song>>("Playing");
 })
 export class PlayerComponent  {
 	@Input() artists: Artist[];
+	constructor(@Inject(PLAYING) public playing: Subject<Song>) {
+	    playing.subscribe((v) => {
+	        console.log(v);
+	    });
+	}
 }
