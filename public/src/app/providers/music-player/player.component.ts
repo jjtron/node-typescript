@@ -9,15 +9,17 @@ export const PLAYING = new InjectionToken<Subject<Song>>("Playing");
 	selector: 'my-player',
 	styleUrls: ['./player.component.css'],
 	template: `
+	    <div><b>Current song in play: </b>{{songPlaying}}</div>
     	<my-artist *ngFor="let artist of artists" [artist]="artist"></my-artist>
 	`,
 	providers: [{ provide: PLAYING, useFactory: () => new Subject<Song>() }]
 })
 export class PlayerComponent  {
 	@Input() artists: Artist[];
+	songPlaying: string = '<none>';
 	constructor(@Inject(PLAYING) public playing: Subject<Song>) {
 	    playing.subscribe((v) => {
-	        console.log(v);
+	        this.songPlaying = v.name;
 	    });
 	}
 }
