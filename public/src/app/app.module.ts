@@ -24,6 +24,8 @@ import { Child2Component } from './chng-detection-strtgy/child2.component';
 import { ResolverDemo }  from './resolver-demo/resolver.demo';
 import { CustomButton }  from './_directives/custom.button';
 import { DirectiveDemoComponent }  from './directive-demo/directive-demo.component';
+import { DemoNgContentComponent } from './demo-ng-content/demo-ng-content.component';
+import { ConsumerComponent } from './demo-ng-content/consumer.component';
 
 @NgModule({
     declarations: [
@@ -45,7 +47,9 @@ import { DirectiveDemoComponent }  from './directive-demo/directive-demo.compone
         Child2Component,
         ResolverDemo,
         CustomButton,
-        DirectiveDemoComponent
+        DirectiveDemoComponent,
+        DemoNgContentComponent,
+        ConsumerComponent
     ],
     imports: [
         BrowserModule,

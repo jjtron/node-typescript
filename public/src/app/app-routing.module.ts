@@ -11,6 +11,7 @@ import { DemoResolver } from './_resolvers/demo.resolver';
 import { ResolverDemo }  from './resolver-demo/resolver.demo';
 import { DirectiveDemoComponent }  from './directive-demo/directive-demo.component';
 import { CanActivateRouteGuard } from './_guards/can-activate-route.guard';
+import { ConsumerComponent } from './demo-ng-content/consumer.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
     	component: ResolverDemo,
     	resolve: { demo_resolver: DemoResolver }
     },
-    { path: 'directive-demo', component: DirectiveDemoComponent }
+    { path: 'directive-demo', component: DirectiveDemoComponent },
+    { path: 'demo-ng-content-comsumer', component: ConsumerComponent }
 ];
 
 @NgModule({
